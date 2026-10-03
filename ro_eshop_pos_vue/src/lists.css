@@ -1,0 +1,380 @@
+/* Shared flat list surfaces, scoped away from the register and receipts. */
+#app .list-table{position:relative;display:flex;flex-direction:column;flex:0 1 auto;min-height:140px;min-width:0;border:1px solid var(--theme-line, #e4e7ed);background:var(--theme-surface, #fff);overflow:hidden;border-radius:4px 4px 0 0}
+#app .list-table-scroll{overflow:auto;min-height:0;max-height:60vh}
+#app .list-table table{width:100%;min-width:680px;table-layout:fixed;border-collapse:separate;border-spacing:0;font-size:14px;color:var(--theme-ink, #303b4d)}
+#app .list-table :is(th,td){box-sizing:border-box;text-align:left;padding:12px 16px;border:0;border-right:1px solid var(--theme-line, #d6dce5);border-bottom:1px solid var(--theme-line, #d6dce5);line-height:22px;overflow-wrap:normal}
+#app .list-table th{position:sticky;top:0;z-index:1;background:var(--theme-surface, #f5f7fa);color:var(--theme-muted, #526074);font-weight:600;height:46px;width:auto}
+#app .list-table td{background:var(--theme-surface, #fff);height:52px}
+#app .list-table tbody tr:hover td{background:var(--theme-surface, #f5f7fa)}
+#app .list-table:not([aria-busy=true]) tbody{animation:list-data-in 120ms ease-out both}
+@keyframes list-data-in{from{opacity:0}to{opacity:1}}
+#app .list-table .cell-number{text-align:right;font-variant-numeric:tabular-nums}
+#app .list-table .cell-actions{position:sticky;right:0;text-align:right;white-space:nowrap;border-left:1px solid var(--theme-line, #d6dce5)}
+#app .list-table th.cell-actions{z-index:2}
+#app .cell-content{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%}
+#app .cell-content small{display:block;color:var(--theme-muted, #606f82);font-size:12px;overflow:hidden;text-overflow:ellipsis;line-height:20px}
+#app .cell-content b{font-weight:500}
+#app .cell-actions .cell-content{overflow:visible}
+#app .list-table td button{min-height:30px;margin:0 0 0 6px;padding:4px 6px;border:0;background:transparent;color:var(--theme-text-accent, #285bd4);box-shadow:none;font-size:13px;display:inline-flex;align-items:center;gap:4px}
+#app .list-table td button:hover:not(:disabled){background:var(--theme-subtle, #eaf1ff)}
+#app .list-table td input{width:100%;min-width:100px;height:34px;padding:6px;border:1px solid var(--theme-line, #dcdfe6)}
+#app .list-empty{padding:54px 20px;text-align:center;color:var(--theme-muted, #607086);font-size:14px}
+#app .list-feedback{position:absolute;inset:46px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center;background:rgba(255,255,255,.95);z-index:3;color:var(--theme-muted, #526074)}
+#app .list-failure{color:#b42318}
+#app .list-pagination{flex-shrink:0;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 16px;border:1px solid var(--theme-line, #e4e7ed);border-top:0;border-radius:0 0 4px 4px;background:var(--theme-surface, white);font-size:13px;color:var(--theme-muted, #526074)}
+#app .pagination-total{margin-right:auto}
+#app .list-pagination :is(button,select,input){min-height:32px;height:32px;margin:0;border:1px solid var(--theme-line, #dcdfe6);border-radius:3px;background:var(--theme-surface, white);font-size:13px;box-shadow:none;padding:4px 9px;color:var(--theme-ink, #3d4c61)}
+#app .list-pagination button{min-width:32px}
+#app .list-pagination button[aria-current=page]{background:var(--theme-accent-fill, #285bd4);color:var(--theme-on-color, #fff);border-color:var(--theme-accent, #285bd4)}
+#app .list-pagination :is(form,label){display:flex;align-items:center;gap:6px;margin:0}
+#app .list-pagination input{width:56px;min-width:0}
+#app .list-pagination button:disabled{opacity:.45;cursor:not-allowed}
+#app .list-filter{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px;margin:0 0 14px;background:var(--theme-surface, white);border:1px solid var(--theme-line, #e4e7ed);border-radius:4px}
+#app .list-filter .filter-fields{flex:0 1 390px;min-width:200px;padding:0}
+#app .list-filter .filter-fields label{display:flex;flex-direction:row;align-items:center;gap:12px;white-space:nowrap;font-size:13px;margin:0}
+#app .list-filter input{min-width:0;width:100%;height:36px;min-height:36px;padding:8px 10px}
+#app .list-filter .list-toolbar{display:flex;flex:1;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:0;border:0}
+#app .list-filter .list-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#app .list-filter button{height:36px;min-height:36px;padding:8px 12px;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+#app .list-filter .order-filter-fields,#app .performance-filter .filter-fields{flex:1 1 100%;display:grid;grid-template-columns:minmax(220px,1.4fr) repeat(2,minmax(150px,.65fr)) minmax(220px,1fr);gap:12px;align-items:end}
+#app .performance-filter .filter-fields{grid-template-columns:repeat(2,minmax(150px,.65fr)) minmax(220px,1fr)}
+#app .list-filter .order-filter-fields>label,#app .list-filter .order-filter-fields>.filter-field,#app .performance-filter .filter-fields>label,#app .performance-filter .filter-fields>.filter-field{display:grid;align-items:start;gap:6px;min-width:0;white-space:normal}
+#app .list-filter .filter-field>span{color:var(--theme-ink, #475569);font-size:13px;line-height:18px}
+#app .store-multi-select{position:relative;min-width:0;color:var(--theme-ink, #303b4d);font-size:13px}
+#app .store-multi-select>summary{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;min-height:36px;padding:7px 32px 7px 10px;border:1px solid var(--theme-line, #dcdfe6);border-radius:4px;background:var(--theme-surface, #fff);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;list-style:none}
+#app .store-multi-select>summary::-webkit-details-marker{display:none}
+#app .store-multi-select>summary:after{content:'⌄';position:absolute;right:11px;color:var(--theme-muted, #778397)}
+#app .store-multi-select[open]>summary{border-color:var(--theme-accent, #285bd4);box-shadow:0 0 0 1px #285bd4}
+#app .store-multi-select.disabled{pointer-events:none;opacity:.6}
+#app .store-multi-panel{position:absolute;z-index:40;top:calc(100% + 6px);right:0;width:max(100%,280px);max-height:280px;overflow:auto;padding:8px;border:1px solid var(--theme-line, #dcdfe6);border-radius:4px;background:var(--theme-surface, #fff);box-shadow:0 8px 24px rgb(35 55 80 / 16%)}
+#app .store-multi-panel header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 6px 8px;border-bottom:1px solid var(--theme-line, #ebeef5)}
+#app .store-multi-panel header span{display:flex;gap:4px}
+#app .store-multi-panel header button{height:auto;min-height:26px;padding:2px 6px;border:0;background:transparent;color:var(--theme-text-accent, #285bd4)}
+#app .store-multi-panel>label{display:flex;flex-direction:row;align-items:center;gap:9px;margin:0;padding:8px 6px;cursor:pointer;white-space:normal}
+#app .store-multi-panel>label:hover{background:var(--theme-surface, #f3f6fb)}
+#app .list-filter .store-multi-panel input[type="checkbox"]{box-sizing:border-box;flex:0 0 16px;width:16px;min-width:16px;max-width:16px;height:16px;min-height:16px;max-height:16px;margin:0;padding:0;accent-color:var(--theme-text-accent,#285bd4)}
+#app .content-page:has(>.list-table){display:flex;flex-direction:column;flex:1;min-height:0}
+#app .business-manage-body>div:has(>.list-table){min-height:0}
+#app .business-manage-dialog:has(.list-table){width:min(1100px,calc(100vw - 32px))}
+@media(max-width:760px){#app .list-pagination{padding:12px 8px;gap:5px}#app .list-pagination form{flex-basis:100%;justify-content:flex-end}#app .list-filter .filter-fields{flex-basis:100%}#app .list-filter .order-filter-fields,#app .performance-filter .filter-fields{grid-template-columns:1fr}}
+
+#app .management-editor:has(.product-wizard){width:min(1080px,calc(100vw - 40px));padding:0;overflow:hidden;display:flex;flex-direction:column}
+#app .management-editor:has(.product-wizard):not([open]){display:none}
+#app .management-editor:has(.product-wizard)>header{padding:18px 24px;margin:0;flex-shrink:0}
+#app .product-wizard{display:flex;flex-direction:column;min-height:0;margin:0;max-height:calc(100dvh - 140px)}
+#app .product-steps{display:flex;list-style:none;margin:0;padding:20px 24px;border-bottom:1px solid var(--theme-line, #ebeef5);background:var(--theme-surface, #fff);gap:18px;flex-shrink:0}
+#app .product-steps li{display:flex;align-items:center;gap:8px;flex:1;font-size:14px;color:var(--theme-muted, #647084);white-space:nowrap}
+#app .product-steps li:not(:last-child):after{content:'';height:1px;background:var(--theme-subtle, #dce2eb);flex:1;margin-left:6px}
+#app .product-steps li>span{width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--theme-line, #bdc6d3);border-radius:50%;font-size:13px;flex-shrink:0}
+#app .product-steps .current{color:var(--theme-text-accent, #285bd4);font-weight:600}
+#app .product-steps .current>span{background:var(--theme-accent-fill, #285bd4);color:var(--theme-on-color, white);border-color:var(--theme-accent, #285bd4)}
+#app .product-steps .complete{color:var(--theme-text-accent, #285bd4)}
+#app .product-steps .skipped{color:var(--theme-muted, #647084);font-weight:400}
+#app .wizard-body{overflow:auto;min-height:0;padding:22px 24px;min-height:260px}
+#app .wizard-body h3{font-size:16px;margin:0 0 18px;color:var(--theme-ink, #303b4d)}
+#app .product-wizard .wizard-footer{margin:0;padding:16px 24px;border-top:1px solid var(--theme-line, #ebeef5);display:flex;align-items:center;gap:10px;background:var(--theme-surface, white);flex-shrink:0}
+#app .wizard-footer-spacer{flex:1}
+#app .method-options{display:flex;gap:12px;flex-wrap:wrap}
+#app .method-options button{flex:1;min-width:190px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-align:left;padding:20px 16px;border:1px solid var(--theme-line, #dcdfe6);background:var(--theme-surface, #fff);color:var(--theme-ink, #344459);border-radius:4px;box-shadow:none}
+#app .method-options button[aria-pressed=true]{border-color:var(--theme-accent, #285bd4);background:var(--theme-surface, #f0f5ff);color:var(--theme-text-accent, #285bd4)}
+#app .method-options small{font-size:12px;color:var(--theme-muted, #59697c);font-weight:400}
+#app .wizard-source{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+#app .wizard-source>button{align-self:flex-start}
+#app .wizard-source textarea{width:100%;resize:vertical;min-height:120px}
+#app .product-wizard fieldset{border:0;padding:0;display:block}
+#app .product-wizard .chosen-category{padding:12px;background:var(--theme-surface, #f5f7fa);color:var(--theme-ink, #4b5e76)}
+#app .product-wizard .product-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#app .product-wizard fieldset>label{margin-top:16px}
+#app .preview-heading{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#app .preview-heading h3{margin:0}
+#app .preview-heading>button{margin-left:auto}
+#app .preview-success{color:#287346}
+#app .validation-message{color:#a84913}
+#app .wizard-preview .list-table table{min-width:1500px}
+#app .wizard-preview .list-table-scroll{max-height:340px}
+@media(max-width:760px){#app .product-steps{gap:8px;padding:14px}#app .product-steps li{font-size:12px;gap:4px;flex-direction:column}#app .product-steps li:after{display:none}#app .wizard-body{padding:16px}#app .product-wizard .product-fields{grid-template-columns:1fr}}
+#app .management-content .management-page .list-table table th{width:auto}
+#app .content-page>.list-table table{min-width:1000px}
+#app .product-wizard .list-table .validation-message{white-space:normal}
+#app .list-pagination :is(form,label){flex-direction:row;white-space:nowrap}
+#app .list-table .cell-content small{margin:2px 0 0}
+#app .management-content .member-profile-page>.profile-title{display:flex;align-items:center;justify-content:space-between;margin:0;padding:16px 20px;border-bottom:1px solid var(--theme-line, #e4e7ed);background:var(--theme-surface, white)}
+#app .management-content .member-profile-page>.profile-title>button{display:inline-flex;font-size:13px}
+#app .member-profile-summary{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:18px 24px;align-items:center;background:var(--theme-surface, white);border-bottom:1px solid var(--theme-line, #ebeef5);padding:20px}
+#app .member-identity{min-width:220px;flex:1}
+#app .member-identity h3{display:inline-block;margin:0 12px 12px 0;font-size:20px}
+#app .member-identity p{margin:0;font-size:13px;color:var(--theme-muted, #526278);overflow-wrap:anywhere}
+#app .member-identity p>span{margin:0 10px}
+#app .member-level,#app .member-status{display:inline-block;color:var(--theme-text-accent, #2454b1);background:var(--theme-surface, #edf3ff);border:1px solid var(--theme-line, #d6e4fc);border-radius:3px;font-size:12px;padding:3px 8px}
+#app .member-balances{display:flex;gap:0;margin:0;grid-column:1/-1;border-top:1px solid var(--theme-line, #ebeef5);padding-top:16px}.member-balances>div{min-width:160px;padding-right:32px;margin-right:32px;border-right:1px solid var(--theme-line, #ebeef5)}.member-balances>div:last-child{border:0}
+#app .member-balances dt{font-size:12px;color:var(--theme-muted, #59697e);margin-bottom:8px}
+#app .member-balances dd{margin:0;font-size:20px;font-weight:600;color:var(--theme-ink, #293f5a);font-variant-numeric:tabular-nums}
+#app .profile-actions{display:flex;flex-wrap:wrap;gap:8px;grid-column:2;grid-row:1;justify-content:flex-end}
+#app .profile-actions button{min-height:34px;padding:7px 12px;font-size:13px}
+#app .profile-scope{font-size:12px;line-height:1.7;color:var(--theme-muted, #5d6e83);margin:0;padding:12px 20px}
+#app .member-profile-tabs{display:flex;gap:24px;border-bottom:1px solid var(--theme-line, #dfe4ed);padding:0 20px;background:var(--theme-surface, white);overflow:auto;flex-shrink:0}
+#app .member-profile-tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;white-space:nowrap;padding:14px 0;color:var(--theme-muted, #526278);box-shadow:none;font-size:14px}
+#app .member-profile-tabs button[aria-pressed=true]{border-bottom-color:var(--theme-accent, #285bd4);color:var(--theme-text-accent, #285bd4);font-weight:600}
+#app .profile-basics{padding:24px 20px;background:var(--theme-surface, white)}
+#app .profile-basics h3{font-size:15px;margin:0 0 16px}
+#app .profile-descriptions{max-width:1120px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;border-top:1px solid var(--theme-line, #ebeef5);border-left:1px solid var(--theme-line, #ebeef5)}
+#app .profile-descriptions>div{display:grid;grid-template-columns:140px minmax(0,1fr);border-right:1px solid var(--theme-line, #ebeef5);border-bottom:1px solid var(--theme-line, #ebeef5);font-size:14px}
+#app .profile-descriptions dt{background:var(--theme-surface, #f5f7fa);color:var(--theme-muted, #56667a);padding:14px 16px}
+#app .profile-descriptions dd{margin:0;padding:14px 16px;overflow-wrap:anywhere;color:var(--theme-ink, #303b4d)}
+#app .profile-records{display:flex;flex-direction:column;min-width:0;padding:18px 20px;background:var(--theme-surface, white);flex:1}
+#app .profile-records .list-table table{min-width:850px}
+#app .profile-records .list-table-scroll{max-height:48vh}
+#app .profile-pending{background:var(--theme-subtle, #fff8e9);padding:12px 20px;color:#79500b}
+#app .member-profile-page .management-editor fieldset{gap:18px 24px}
+#app .member-profile-page .management-editor input[readonly]{background:var(--theme-surface, #f5f7fa);color:var(--theme-muted, #59697e)}
+#app .list-table td .member-name-link{margin:0;padding:0;min-height:22px;font-size:14px;display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+#app .business-manage-page[data-kind=member] .list-table table{min-width:1060px}
+@media(max-width:1000px){#app .profile-descriptions{grid-template-columns:1fr}#app .member-balances{flex-wrap:wrap}#app .profile-records{padding:16px 10px}}
+
+#app .list-table th .column-sort{display:inline-flex;align-items:center;gap:8px;border:0;padding:0;margin:0;min-height:24px;background:transparent;box-shadow:none;color:inherit;font:inherit;white-space:nowrap}
+#app .sort-arrows{display:inline-flex;flex-direction:column;line-height:8px;color:var(--theme-muted, #a8b1bf);font-size:12px}
+#app .sort-arrows i{font-style:normal}#app .sort-arrows .active{color:var(--theme-text-accent, #285bd4)}
+#app .list-table .cell-index{text-align:center;color:var(--theme-muted, #7a8697);padding:12px 8px}
+#app .management-editor form{max-width:960px;margin:0 auto}
+#app .management-editor fieldset:not(.product-wizard fieldset){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;border:0;padding:0}
+#app .management-editor fieldset:not(.product-wizard fieldset)>label{display:flex;flex-direction:column;gap:8px;margin:0;font-size:13px;color:var(--theme-muted, #526074)}
+#app .management-editor :is(input,select,textarea){box-sizing:border-box;max-width:100%;border:1px solid var(--theme-line, #dcdfe6);border-radius:4px;padding:9px 12px}
+#app .user-store-assignments{grid-column:1/-1;border:1px solid var(--theme-line, #dcdfe6);border-radius:4px;overflow:hidden;background:var(--theme-surface, #fff)}
+#app .user-store-assignments>header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--theme-surface, #f5f7fa);border-bottom:1px solid var(--theme-line, #dcdfe6);font-size:13px}
+#app .user-store-assignments>header span{color:var(--theme-muted, #68768a)}
+#app .user-store-assignment{display:grid;grid-template-columns:minmax(220px,1fr) 150px;gap:16px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--theme-line, #ebeef5)}
+#app .user-store-assignment:last-child{border-bottom:0}
+#app .user-store-assignment>label.check{display:flex;flex-direction:row;align-items:center;gap:10px;margin:0;color:var(--theme-ink, #303b4d)}
+#app .user-store-assignment input[type=checkbox]{width:16px;height:16px;min-height:16px;margin:0;padding:0;accent-color:var(--theme-text-accent,#285bd4)}
+#app .user-store-assignment select{min-height:34px;padding:6px 10px}
+#app .user-store-tags{display:flex;flex-wrap:wrap;gap:4px 6px;white-space:normal}
+#app .user-store-tags>span{display:inline-flex;padding:2px 7px;border:1px solid var(--theme-line, #d4e1f4);border-radius:3px;background:var(--theme-selected, #edf4ff);color:var(--theme-text-accent, #315b96);font-size:12px;line-height:20px}
+@media(max-width:760px){#app .member-profile-summary{grid-template-columns:1fr}#app .profile-actions{grid-column:1;grid-row:auto;justify-content:flex-start}#app .management-editor fieldset:not(.product-wizard fieldset){grid-template-columns:1fr}#app .user-store-assignment{grid-template-columns:1fr}}
+
+#app .list-table tr>:last-child{border-right:0}
+
+#app .list-table .cell-select{text-align:center;padding:8px}
+#app .list-table .cell-select input[type=checkbox]{display:inline-block;width:16px;min-width:16px;max-width:16px;height:16px;min-height:16px;margin:0;padding:0;vertical-align:middle;accent-color:var(--theme-text-accent,#285bd4);cursor:pointer}
+#app .list-table .cell-select input:disabled{cursor:not-allowed}
+#app .list-table tbody tr:has(.cell-select input:checked) td{background:var(--theme-selected, #edf4ff)}
+@media(prefers-reduced-motion:reduce){#app .list-table:not([aria-busy=true]) tbody{animation:none}}
+
+/* Keep product columns readable when the category sidebar narrows the table. */
+#app .business-manage-page[data-kind=product] .list-table table{min-width:920px}
+#app .business-manage-page[data-kind=product] .list-table td.cell-number{padding-right:14px}
+#app .list-table th.cell-number .column-sort{position:relative;padding-right:16px;gap:0}
+#app .list-table th.cell-number .sort-arrows{position:absolute;right:0;top:50%;transform:translateY(-50%);width:10px;align-items:center}
+
+#app .business-manage-page[data-kind=product] .list-table .cell-actions{position:sticky;right:0}
+
+#app .standalone-orders .list-filter .order-filter-fields{grid-template-columns:minmax(240px,1fr) minmax(160px,.5fr) minmax(160px,.5fr)}
+#app .standalone-orders>.list-table table{min-width:760px}
+@media(max-width:760px){#app .standalone-orders .list-filter .order-filter-fields{grid-template-columns:1fr}}
+
+/* Shared workbench list rhythm: keep data, controls and headings on the same axes. */
+#app .management-content .list-table :is(th,td){padding:10px 14px;vertical-align:middle}
+#app .management-content .list-table th{height:42px;background:var(--theme-subtle,#f3f5f8);font-size:13px}
+#app .management-content .list-table td{height:48px}
+#app .management-content .list-table :is(.cell-index,.cell-select,.cell-center,.cell-actions){text-align:center}
+#app .management-content .list-table .cell-number{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums}
+#app .management-content .list-table .cell-date .cell-content{white-space:normal;overflow-wrap:anywhere;line-height:20px;font-variant-numeric:tabular-nums}
+#app .management-content .list-table .cell-actions .cell-content{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;white-space:normal}
+#app .management-content .list-table .cell-actions button{height:30px;min-height:30px;margin:0;padding:0 10px;line-height:1;border:1px solid var(--theme-line,#d9e2ef);border-radius:4px;background:var(--theme-surface,#fff);color:var(--theme-text-accent,#285bd4);justify-content:center;white-space:nowrap}
+#app .management-content .list-table .cell-actions :is(.danger,.danger-text,.danger-button){color:#b4232d;border-color:#edc9cb}
+#app .management-content .list-table .cell-actions button:disabled{color:#92979e;background:#f5f6f7;border-color:#e3e5e8;opacity:1;cursor:not-allowed}
+#app .management-content .list-table tbody tr:hover td{background:var(--theme-raised,#f7f9fc)}
+#app .management-content .list-table .badge{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:2px 8px;line-height:20px;white-space:normal;font-size:12px;border-radius:4px;background:var(--theme-selected,#eaf1fd)}
+#app .management-content .list-filter :is(input:not([type=checkbox]),select,button){box-sizing:border-box;height:36px;min-height:36px;margin:0;line-height:20px}
+#app .management-content .list-filter button{padding:0 12px;justify-content:center;gap:6px}
+#app .management-content .list-filter .list-toolbar{align-items:center}
+#app .management-content .list-pagination{gap:8px;padding:12px 14px;align-items:center}
+#app .management-content .list-pagination :is(button,input,select){height:32px;min-height:32px;box-sizing:border-box;line-height:20px}
+#app .management-content .standalone-orders>.list-table table{min-width:900px}
+#app .management-content .rules-table :is(th,td){padding:10px 14px;vertical-align:middle;height:44px}
+#app .management-content .rules-table th{background:var(--theme-subtle,#f3f5f8)}
+#app .management-content .rules-table :is(th,td):last-child{text-align:center}
+#app .management-content .rules-table button{min-height:30px;padding:4px 10px;border:1px solid #edc9cb;border-radius:4px;color:#b4232d;background:var(--theme-surface,#fff)}
+
+/* Shared management list/form interaction rules. */
+#app .management-content .list-table .cell-date .cell-content{overflow-wrap:normal;white-space:normal}
+#app .list-table .date-part{display:block;white-space:nowrap}
+#app .list-table .date-part+ .date-part{color:var(--theme-muted,#526074);font-size:12px}
+#app .management-content .list-table .cell-actions .cell-content{flex-wrap:nowrap}
+#app .list-table .action-unavailable{font-size:12px;line-height:18px;white-space:normal;color:var(--theme-muted,#526074)}
+#app .management-content .list-pagination>button{width:auto;min-width:32px;padding:0 10px;white-space:nowrap}
+#app .management-editor .required-mark{display:inline;color:#b4232d;position:absolute;right:0;top:0}
+#app .management-editor label:has(>.required-mark){position:relative;padding-right:12px}
+#app .management-editor .editor-form>footer,#app .management-editor .editor-form>fieldset>footer,#app .category-dialog form>footer{position:sticky;bottom:0;z-index:2;background:var(--theme-surface,#fff);padding:16px 0;margin-bottom:0;border-top:1px solid var(--theme-line,#dce5f2)}
+#app .management-editor [aria-invalid=true]{border-color:#b4232d;outline-color:#b4232d}
+#app .management-editor .error{white-space:normal;overflow-wrap:anywhere}
+@media(pointer:coarse){
+ #app .management-content :is(.list-table td button,.list-pagination button,.list-filter button,.tree-row button,.tree-toggle-all,.category-name-cell button,.management-tabs button),#app .management-editor button{min-height:44px;height:auto;min-width:44px}
+ #app .management-content .list-table .cell-select{padding:0}
+ #app .management-content .list-table .cell-select input[type=checkbox]{width:24px;height:24px;min-width:24px;margin:10px;outline-offset:3px}
+ #app .management-content .category-name-cell button{flex-basis:44px}
+ .pos-select-option{min-height:44px;box-sizing:border-box}
+}
+
+#app .management-content .category-row-actions{flex-wrap:wrap}
+@media(pointer:coarse){#app .business-manage-page[data-kind=product] .list-table .product-row-action{min-height:44px;height:auto}}
+
+#app :is(.product-category-nav,.category-navigation) .category-nav-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 12px;min-height:52px}
+#app .category-nav-heading button,#app .category-reopen button{display:inline-flex;align-items:center;gap:4px;min-height:44px;border:0;background:transparent;color:var(--theme-text-accent,#245bd0);padding:6px 8px;white-space:nowrap;font-size:12px}
+#app .category-reopen{grid-column:1 / -1;justify-self:start}
+#app .category-nav-heading button:hover,#app .category-reopen button:hover{background:var(--theme-selected,#edf3ff)}
+
+/* Shared two-tier filters: fields above, query and business actions below. */
+#app .management-content form.list-filter,#app .business-translation-dialog form.list-filter{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:10px 12px;margin:0 0 8px;border:1px solid var(--theme-line,#e4e7ed);background:var(--theme-surface,#fff);border-radius:4px;flex-shrink:0;container-type:normal}
+#app .management-content form.list-filter>.filter-fields,#app .business-translation-dialog form.list-filter>.filter-fields{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;width:100%;min-width:0;max-width:none;flex:0 0 auto;padding:0}
+#app .management-content form.list-filter>.list-toolbar,#app .business-translation-dialog form.list-filter>.list-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;width:100%;flex:0 0 auto;padding:8px 0 0;margin:0;border-top:1px solid var(--theme-line,#e4e7ed)}
+#app .management-content form.list-filter>.filter-fields>:is(label,.filter-field),#app .business-translation-dialog form.list-filter>.filter-fields>:is(label,.filter-field){display:flex;flex:0 1 auto;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:8px;min-width:0;max-width:100%;margin:0;padding:0;font-size:13px;line-height:20px;white-space:nowrap}
+#app .management-content form.list-filter>.filter-fields input,#app .business-translation-dialog form.list-filter>.filter-fields input{box-sizing:border-box;flex:0 1 220px;width:220px;min-width:100px;max-width:100%;height:40px;min-height:40px;margin:0;padding:8px 12px;font-size:14px}
+#app .management-content form.list-filter>.filter-fields input[type=date]{flex:0 1 150px;width:150px;min-width:130px}
+#app .management-content form.list-filter>.filter-fields :is(.pos-select,.store-multi-select),#app .business-translation-dialog form.list-filter>.filter-fields .pos-select{width:180px;min-width:0;flex:0 1 180px}
+#app .management-content form.list-filter>.filter-fields :is(.pos-select-trigger,.store-multi-select>summary){min-height:40px}
+#app .management-content form.list-filter>.list-toolbar>.list-actions,#app .business-translation-dialog form.list-filter>.list-toolbar>.list-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0;max-width:100%}
+#app .management-content form.list-filter>.list-toolbar>.list-actions+ .list-actions,#app .business-translation-dialog form.list-filter>.list-toolbar>.list-actions+ .list-actions{margin-left:auto;justify-content:flex-end}
+#app .management-content form.list-filter>.list-toolbar button,#app .business-translation-dialog form.list-filter>.list-toolbar button{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;height:40px;min-height:40px;min-width:72px;padding:8px 14px;margin:0;font-size:14px;line-height:20px;white-space:nowrap}
+#app .management-content form.list-filter>.list-toolbar button .icon{width:18px;height:18px;margin:0;flex-shrink:0;color:inherit}
+#app .management-content :is(.receipt-settings,.hardware-settings,.theme-settings,.currency-settings) form>footer{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:8px;padding-top:16px}
+#app .management-content :is(.receipt-settings,.hardware-settings,.theme-settings,.currency-settings) form>footer button{min-height:40px;padding:8px 14px}
+@media(pointer:coarse){#app .management-content form.list-filter>.list-toolbar button,#app .management-content form.list-filter>.filter-fields input,#app .management-content form.list-filter>.filter-fields :is(.pos-select-trigger,.store-multi-select>summary){min-height:44px;height:44px}}
+
+/* Empty content stays centered in the visible body, independent of table horizontal scrolling. */
+#app .list-table.is-empty>.list-table-scroll{flex:0 0 auto;min-height:0;max-height:none}
+#app .list-table.is-empty .list-empty{display:flex;flex:1;min-height:220px;box-sizing:border-box;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:32px 20px;text-align:center;color:#727780}
+#app .list-empty>.icon{width:64px;height:64px;stroke-width:1.25;color:#b8bec7;margin:0 0 4px}
+#app .list-empty>p{font-size:14px;line-height:1.6;font-weight:400;margin:0;max-width:100%;overflow-wrap:anywhere}
+#app .list-empty>small{font-size:13px;line-height:1.6;color:#898e96}
+
+/* Inventory pages: a single compact toolbar and a body that owns remaining space. */
+#app .management-content .inventory-page{display:flex;flex-direction:column;flex:1;min-height:0;min-width:0;overflow:hidden;padding:0}
+#app .management-content .inventory-page>header{display:flex;align-items:center;justify-content:flex-start;gap:16px;min-height:48px;padding:8px 0;margin:0 0 8px;border-bottom:1px solid var(--theme-line,#dfe6ef);flex-shrink:0}
+#app .management-content .inventory-page>header h2{margin:0;font-size:18px;line-height:28px}
+#app .management-content .inventory-page .business-manage-body{display:flex;flex-direction:column;flex:1;min-height:0;padding:0}
+#app .management-content .inventory-page :is(.product-category-layout,.category-management-layout){display:grid;grid-template-columns:210px minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px;flex:1;min-width:0;min-height:0;overflow:hidden}
+#app .management-content .inventory-page :is(.product-category-layout,.category-management-layout).categories-collapsed{grid-template-columns:minmax(0,1fr)}
+#app .management-content .inventory-page :is(.product-category-nav,.category-navigation){display:flex;flex-direction:column;min-height:0;overflow:hidden;border:1px solid var(--theme-line,#dfe6ef)}
+#app .management-content .inventory-page :is(.product-list-content,.category-list-content){display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden}
+#app .management-content .inventory-page :is(.product-list-content,.category-list-content)>.list-table{flex:1;min-height:140px}
+#app .management-content .inventory-page .list-table-scroll{flex:1;min-height:0;max-height:none}
+#app .management-content .inventory-page .list-table.is-empty>.list-table-scroll{flex:0 0 auto}
+#app .management-content .inventory-page :is(.product-category-nav,.category-navigation)>.category-nav-heading{flex-shrink:0;min-height:44px;padding:0 8px;font-size:13px}
+#app .management-content .inventory-page .category-tree-panel{display:flex;flex-direction:column;flex:1;min-height:0}
+#app .management-content .inventory-page .tree-search{flex-shrink:0;padding:8px}
+#app .management-content .inventory-page .tree-scroll{flex:1;min-height:0;overflow:auto;max-height:none}
+#app .management-content .inventory-page .category-table-tools{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;border:0;padding:0 8px;background:transparent}
+#app .management-content .inventory-page .category-table-tools button{min-height:32px;padding:4px;border:0;background:transparent;font-size:12px}
+#app .management-content .inventory-page .list-pagination{flex-shrink:0;padding:8px 12px}
+@media(max-width:700px){
+ #app .management-content .inventory-page :is(.product-category-layout,.category-management-layout){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(100px,25%) minmax(0,1fr)}
+ #app .management-content .inventory-page :is(.product-category-layout,.category-management-layout).categories-collapsed{grid-template-rows:minmax(0,1fr)}
+}
+
+#app .list-filter .more-filters{border:0;background:transparent;color:var(--theme-text-accent,#285bd4)}
+#app .list-filter .more-filters .icon{width:14px;height:14px}
+#app .management-editor>header .editor-header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+#app .management-editor>header{position:sticky;top:0;z-index:3;background:var(--theme-surface,#fff)}
+#app .management-editor>header .editor-back{border:0;background:transparent;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+
+#app .more-filters[aria-expanded=true] .icon{transform:rotate(180deg)}
+
+#app .management-content .settings-header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+#app .management-content .settings-header-actions button{display:inline-flex;align-items:center;gap:6px;min-height:40px}
+#app .category-dialog>header{position:sticky;top:0;z-index:2;background:var(--theme-surface,#fff);gap:12px}
+#app .category-dialog>header h3{flex:1}
+
+/* One table keeps totals aligned with resized columns while spare height stays blank. */
+#app .list-table .list-space{display:none}
+#app .list-table.is-empty .list-space{display:table-row}
+#app .list-table .list-space>td{height:auto;padding:0;border:0;background:#fff}
+#app .management-content :is(.content-page,.management-page):has(>.list-table){display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+#app .management-content :is(.content-page,.management-page):has(>.list-table)>:not(.list-table){flex-shrink:0}
+#app .management-content .list-table{flex:1 1 0;min-height:100px}
+#app .management-content .inventory-page .list-table.is-empty>.list-table-scroll,
+#app .management-content .list-table>.list-table-scroll{flex:1 1 0;min-height:0;max-height:none;height:100%}
+#app .management-content .list-table>.list-table-scroll>table{height:100%}
+#app .management-content .list-table .list-space{display:table-row;height:100%}
+#app .management-content .list-table .list-space:hover>td,
+#app .management-content .list-table .list-space>td{height:auto;padding:0;border:0;background:#fff}
+#app .management-content .list-table .list-summary td{z-index:3}
+#app .management-content .list-pagination{flex:0 0 auto}
+
+/* Neutral workspace surfaces keep brand colour reserved for emphasis. */
+@media screen {
+  #app .management-content.management-content {
+    --theme-line:#dfe3e8;
+    --border:#dfe3e8;
+    --theme-subtle:#f1f3f6;
+    --theme-raised:#f7f9fb;
+    --theme-ink:#27313d;
+    --theme-muted:#626d7b;
+    background:#f3f5f7;
+  }
+  #app .management-content .management-page>header,
+  #app .management-content .content-page>h2 {background:transparent;color:#27313d;font-weight:650}
+  #app .management-content .list-table th {background:#edf0f4;color:#505b69;font-weight:600}
+  #app .management-content .list-table :is(th,td) {border-right-color:#edf0f3}
+  #app .management-content .list-table .cell-content b,
+  #app .management-content .list-table .cell-number strong {font-weight:600;color:#27313d}
+  #app .management-content .list-table .list-summary td {background:#eef2f6;border-top:2px solid #ccd4df;color:#27313d;height:44px}
+  #app .management-content .list-table .cell-actions button:not(.primary):not(.danger):not(.danger-text):not(.danger-button) {color:#465363;border-color:#d8dee6;background:#fff;font-weight:500}
+  #app .management-content .list-table .cell-actions button:not(:disabled):hover {background:#f1f4f7;border-color:#aeb9c6}
+  #app .management-content .list-table .badge.status-success {background:#e8f4ed;color:#237247}
+  #app .management-content .list-table .badge.status-pending {background:#fff2d8;color:#8a5b10}
+  #app .management-content .list-table .badge.status-neutral {background:#edf0f3;color:#596472}
+  #app .management-content .list-table .badge+small {margin-top:3px}
+  #app .management-tabs>div:not(.active) {background:var(--theme-subtle,#f5f7fa);border-color:var(--theme-line,#dce3ec)}
+  #app .management-tabs>div:not(.active):hover {background:#f0f3f6;border-color:#dfe3e8}
+}
+
+/* Page headings use the same horizontal edges as their content. */
+#app .management-content .management-page>header:first-child,
+#app .management-content .content-page>h2:first-child{margin:0 0 8px;padding:8px 12px;min-height:44px;box-sizing:border-box;flex-shrink:0}
+#app .management-content .management-page>header:first-child h2,
+#app .management-content .content-page>h2:first-child{display:flex;align-items:center;gap:8px;font-size:18px;line-height:28px}
+#app .management-content .management-page>header:first-child h2>.icon,
+#app .management-content .content-page>h2:first-child>.icon{width:20px;height:20px;flex:0 0 20px}
+#app .management-content .settings-header-actions{margin-left:auto;flex-shrink:0}
+
+/* Compact administration spacing; cashier touch controls retain their sizes. */
+@media screen {
+#app .management-content .list-table :is(th,td):not(.cell-select):not(.cell-index){padding:8px 12px}
+#app .management-content .list-table .list-space>td{padding:0}
+#app .management-content .list-pagination{padding:8px 12px;gap:8px}
+#app .management-content .list-actions{gap:8px}
+#app .management-content .inventory-page>header{padding:8px 12px;min-height:44px;margin-bottom:8px}
+}
+
+/* Page titles are the header of the first card, not a separate surface. */
+@media screen {
+ #app .management-content :is(.management-page>header:first-child,.content-page>h2:first-child){margin-bottom:0;background:var(--theme-surface,#fff);border:1px solid var(--theme-line,#dfe3e8);border-radius:4px 4px 0 0}
+ #app .management-content :is(.management-page>header:first-child,.content-page>h2:first-child)+:is(form,.list-filter){margin-top:0;border-top:0;border-radius:0 0 4px 4px}
+ #app .management-content .receipt-settings-layout{margin-top:0;background:var(--theme-surface,#fff);border-inline:1px solid var(--theme-line,#dfe3e8);border-bottom:1px solid var(--theme-line,#dfe3e8);border-radius:0 0 4px 4px}
+ #app .management-content .receipt-settings-layout>:is(form,.receipt-preview){border-top:0;border-radius:0}
+ #app .management-content .inventory-page>header:first-child{margin-bottom:0}
+ #app .management-content .inventory-page :is(.product-category-layout,.category-management-layout){background:var(--theme-surface,#fff)}
+}
+
+/* The workspace owns page insets; embedded pages share one compact rhythm. */
+@media screen {
+ #app .management-content .management-view>:is(.management-page,.content-page,.inventory-page,.performance-dashboard){padding:0;margin:0;max-width:none;width:100%;box-sizing:border-box}
+ #app .management-content .inventory-page>header:first-child{padding:8px 12px;min-height:44px;margin:0;background:var(--theme-surface,#fff);border:1px solid var(--theme-line,#dfe3e8);border-radius:4px 4px 0 0;box-sizing:border-box}
+ #app .management-content .inventory-page>header:first-child h2{margin:0;line-height:28px}
+ #app .management-content .inventory-page :is(.product-category-layout,.category-management-layout),
+ #app .management-content .receipt-settings-layout{gap:8px}
+ #app .management-content form.list-filter{padding:12px;margin-bottom:8px}
+ #app .management-content :is(.hardware-settings,.theme-settings)>form,
+ #app .management-content .receipt-settings-layout>:is(form,.receipt-preview){padding:12px}
+ #app .management-content .data-ledger-actions{margin:0;padding:12px;border-radius:4px}
+ #app .management-content .data-ledger-actions h3{margin:0 0 8px}
+ #app .management-content .utility-page .data-scope-note{margin:8px 0;padding:0 12px}
+ #app .management-content .offline-data-inline .offline-data-body{padding:12px}
+ #app .management-content .offline-data-inline :is(.offline-data-counts,.offline-import-preview){margin:8px 0;gap:8px}
+ #app .management-content .offline-data-inline :is(.offline-data-counts>div,.offline-import-preview){padding:12px}
+}
+
+/* Settings retain only their working actions, not a repeated page title. */
+@media screen {
+ #app .management-content .management-page>header.settings-action-bar{min-height:0;padding:8px 12px;display:flex;justify-content:flex-end}
+}

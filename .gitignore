@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+
+node_modules/
+dist/
+build/
+unpackage/
+
+project.private.config.json
+.idea/
+.vscode/
+
+# Also ignore developer dependency symlinks.
+node_modules
+!.env.example

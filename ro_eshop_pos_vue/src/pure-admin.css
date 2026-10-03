@@ -1,0 +1,68 @@
+/* Pure Admin-inspired pilot surfaces. Brand tokens are shared with the existing POS. */
+.pure-admin-page,.product-edit-layout,.pos-date-popper,.pos-date-range,.pos-select-popper {
+ --el-color-primary:var(--theme-text-accent,#285bd4);
+ --el-color-primary-light-3:color-mix(in srgb,var(--el-color-primary) 70%,white);
+ --el-color-primary-light-5:color-mix(in srgb,var(--el-color-primary) 50%,white);
+ --el-color-primary-light-7:color-mix(in srgb,var(--el-color-primary) 30%,white);
+ --el-color-primary-light-9:color-mix(in srgb,var(--el-color-primary) 10%,white);
+ --el-color-primary-dark-2:var(--el-color-primary);
+ --el-border-radius-base:4px;--el-border-color:#dcdfe6;
+ --el-text-color-primary:#303133;--el-text-color-regular:#606266;
+}
+#app :is(.pure-admin-page,.product-edit-layout) .el-input{width:100%;min-width:0;display:inline-flex}
+#app :is(.pure-admin-page,.product-edit-layout) .el-input__wrapper{padding:1px 11px;background:#fff;min-height:36px;border-radius:4px}
+#app :is(.pure-admin-page,.product-edit-layout) input.el-input__inner{border:0;box-shadow:none;outline:none;background:transparent;padding:0;margin:0;height:36px;min-height:0;min-width:0;width:100%;font:inherit;color:var(--el-text-color-primary);flex:1}
+#app .product-edit-layout textarea.el-textarea__inner{margin:0;font:inherit;line-height:1.6;border:0;padding:8px 12px;background:#fff}
+#app .pure-admin-page .filter-fields>.date-range-field{flex:0 1 460px;max-width:none;min-width:300px;display:flex;align-items:center;gap:12px}
+#app .pure-admin-page .date-range-field>span{white-space:nowrap;font-size:13px}
+#app .pure-admin-page .pos-date-range{width:340px;max-width:100%;height:38px;min-height:38px;flex:1;padding:0 10px;box-sizing:border-box;background:#fff}
+#app .pure-admin-page .pos-date-range input.el-range-input{width:40%;min-width:0;height:34px;min-height:0;padding:0;border:0;outline:none;box-shadow:none;margin:0;background:transparent;flex:none;font-size:13px}
+#app .pure-admin-page .pos-date-range .el-range-separator{padding:0 4px;flex:none;color:#909399}
+#app .pure-admin-page .pos-date-range .el-range__icon{height:auto;margin:0 6px 0 0}
+#app .pure-admin-page .el-button{height:36px;min-height:36px;padding:8px 15px;margin:0;line-height:1;background:var(--el-button-bg-color);border:1px solid var(--el-button-border-color);color:var(--el-button-text-color);font-size:14px;box-shadow:none}
+#app .pure-admin-page .el-button>span{display:inline-flex;align-items:center;gap:6px}
+#app .pure-admin-page .el-button--primary{background:var(--theme-action-gradient,var(--theme-accent-fill,#285bd4));border-color:var(--theme-accent,#285bd4);color:#fff}
+:root[data-theme=black-gold] #app .pure-admin-page .el-button--primary{color:#29251c}
+#app .pure-admin-page .el-button.is-disabled{opacity:.5;cursor:not-allowed}
+/* Native POS table/button rules must not restyle the calendar's internal table. */
+:root .pos-date-popper table{min-width:0;width:100%;table-layout:fixed;border:0;margin:0;font-size:12px}
+:root .pos-date-popper :is(th,td){border:0;background:transparent;padding:0;height:32px;font-size:12px;text-align:center;color:inherit;overflow:visible}
+:root .pos-date-popper th{position:static;height:32px;border-bottom:1px solid #ebeef5;font-weight:400}
+:root .pos-date-popper button{min-height:0;height:auto;padding:0;margin:0;border:0;background:transparent;box-shadow:none;color:inherit;font:inherit}
+:root .pos-date-popper .el-picker-panel__shortcut{display:block;width:100%;padding:8px 12px;text-align:left;font-size:13px;line-height:20px;border-radius:4px}
+:root .pos-date-popper .el-picker-panel__shortcut:hover{background:var(--el-color-primary-light-9);color:var(--el-color-primary)}
+:root .pos-date-popper .el-picker-panel__icon-btn{margin-top:8px;font-size:12px;color:#606266}
+:root .pos-date-popper .el-picker-panel__icon-btn.is-disabled{opacity:.3}
+#app .product-edit-layout{gap:12px;padding:12px;background:#f5f7fa;align-items:start}
+#app .product-edit-layout>section{min-width:0;border:1px solid #e4e7ed;border-radius:6px;background:#fff;padding:12px}
+#app .product-edit-layout h3{padding-bottom:12px;border-bottom:1px solid #ebeef5;margin-bottom:12px}
+#app .product-edit-layout .variant-fields{margin:0;padding:0;border:0;min-width:0}
+@media(max-width:760px){#app .pure-admin-page .date-range-field{flex-basis:100%}.pos-date-popper{max-width:calc(100vw - 24px);overflow:auto}}
+
+#app .pure-admin-page .el-select{width:180px;min-width:0}
+#app .pure-admin-page .el-select__wrapper{min-height:38px}
+#app .pure-admin-page .el-select__input{border:0;box-shadow:none;outline:0;background:transparent;margin:0;padding:0;min-height:0;height:24px}
+#app .product-edit-layout .el-input:has(input[aria-invalid=true]) .el-input__wrapper{box-shadow:0 0 0 1px #d93036 inset}
+
+/* Workbench controls share a compact sizing system. */
+#app .pure-admin-page .workbench-select .el-select{width:100%;min-width:0}
+#app .pure-admin-page .workbench-select .el-select__wrapper{min-height:38px;font-size:14px;border-radius:4px;background:#fff}
+#app .pure-admin-page .workbench-select .el-select__input{border:0;outline:0;box-shadow:none;min-width:0;max-width:100%;width:auto;height:24px;min-height:0;padding:0;margin:0;background:transparent;font:inherit;flex:1}
+#app .pure-admin-page .list-pagination>.workbench-select{width:120px;flex:0 0 120px}
+#app .pure-admin-page .list-pagination .el-select__wrapper{min-height:32px}
+#app .pure-admin-page .el-input input.el-input__inner{border:0;box-shadow:none;outline:0;background:transparent;padding:0;margin:0;width:100%;min-height:0;height:32px;font:inherit}
+#app .pure-admin-page .el-textarea__inner{font:inherit;line-height:1.6;border:0;background:#fff;padding:8px 12px;margin:0}
+#app .pure-admin-page .el-input.is-disabled .el-input__wrapper{background:#f5f7fa}
+#app .pure-admin-page :is(.list-filter,.list-toolbar,.settings-header-actions,.editor-header-actions) button:not(.el-input__clear){border-radius:4px;font-size:14px;min-height:36px;padding:8px 14px;box-shadow:none;line-height:20px}
+#app .pure-admin-page :is(.list-filter,.list-toolbar,.settings-header-actions,.editor-header-actions) button:not(.primary):not(.el-button--primary):not(.more-filters){background:#fff;border:1px solid #dcdfe6;color:#606266}
+#app .pure-admin-page :is(.editor-grid,.settings-grid,.translation-grid) label{font-size:14px;color:#606266;gap:8px}
+#app .pure-admin-page :is(.editor-grid,.settings-grid,.translation-grid) input[type=number]{border:1px solid #dcdfe6;border-radius:4px;height:38px;min-height:38px;padding:0 11px;background:#fff;color:#303133;font-size:14px}
+#app .pure-admin-page .translation-grid{gap:12px}
+#app .pure-admin-page .translation-grid>section{padding:12px;border:1px solid #e4e7ed;border-radius:6px;background:#fff}
+#app .pure-admin-page :is(.hardware-config,.receipt-editor,.theme-settings-panel){border-color:#e4e7ed;border-radius:6px;background:#fff}
+#app .pure-admin-page .dashboard-filter>.date-range-field{display:flex;align-items:center;gap:12px;flex:0 1 auto;min-width:0;max-width:100%}
+#app .pure-admin-page .dashboard-filter .pos-date-range{width:320px;max-width:100%;min-width:0;flex:0 1 320px;height:38px}
+@media(max-width:700px){#app .pure-admin-page .dashboard-filter>.date-range-field{flex:1 1 100%}#app .pure-admin-page .dashboard-filter .pos-date-range{flex:1 1 0;width:0}}
+#app .pure-admin-page .dashboard-filter>.date-range-field>span{white-space:nowrap}
+#app .pure-admin-page .el-input__wrapper:focus-within{box-shadow:0 0 0 1px var(--el-color-primary) inset}
+#app .workbench-select input.workbench-select-validation{position:absolute;width:1px;height:1px;min-height:0;padding:0;border:0;opacity:0;pointer-events:none}

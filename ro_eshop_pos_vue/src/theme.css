@@ -1,0 +1,86 @@
+/* Blue uses the original base styles; alternate themes only affect screen colours. */
+@media screen {
+  :root[data-theme="orange"] {
+    color-scheme:light; --brand:#f78406; --theme-accent:#e57403; --theme-accent-fill:#f78406;
+    --theme-surface:#fff; --theme-subtle:#f7f4f0; --theme-selected:#f9e9da;
+    --theme-raised:#fcf8f4; --theme-inverse:#30343b; --theme-line:#e5d8ca;
+
+    --border:#e5d8ca;
+    --theme-text-accent:#a84800; --theme-ink:#34312d; --theme-muted:#6b625b;
+  }
+  :root[data-theme="black-gold"] {
+    color-scheme:light; --brand:#30302d; --theme-accent:#c5a664;
+    --theme-accent-fill:#30302d; --theme-surface:#fff; --theme-subtle:#f5f4f1;
+    --theme-selected:#f4ead0; --theme-raised:#faf8f3; --theme-inverse:#292a2d;
+    --theme-line:#dfd9cd;
+     --border:#dfd9cd;
+    --theme-text-accent:#826321; --theme-ink:#34332f; --theme-muted:#69665e;
+  }
+  :root:not([data-theme="blue"]) { background:var(--theme-subtle);  }
+  :root:not([data-theme="blue"]) button.primary:hover:not(:disabled) { filter:brightness(.95); }
+  :root:not([data-theme="blue"]) .login-shell {
+    background:linear-gradient(rgb(39 31 23 / 90%),rgb(39 31 23 / 70%)),var(--home-artwork) center/cover no-repeat;
+  }
+  :root:not([data-theme="blue"]) .login-window { background:#fff; }
+  :root:not([data-theme="blue"]) .login-art::after { background:linear-gradient(90deg,transparent 55%,rgb(0 0 0 / 12%)); }
+
+  /* Orange follows the blue composition: coloured panel, faint artwork and white text. */
+  :root[data-theme="orange"] .login-window:has(.showing-content) { background:#e87808; }
+  :root[data-theme="orange"] .login-art.showing-content::after {
+    background:linear-gradient(90deg,#a94e05bb,transparent 70%);
+  }
+
+  /* Introduction pages retain the image and a dark theme-coloured overlay. */
+  :root[data-theme="black-gold"] .login-window:has(.showing-content) { background:#292a2d; }
+  :root[data-theme="black-gold"] .login-art.showing-content::after {
+    background:linear-gradient(90deg,rgb(24 24 22 / 90%) 0%,rgb(40 36 26 / 82%) 58%,transparent 100%);
+  }
+  :root:not([data-theme="blue"]) .login-page-content p { color:#f0e6d5; }
+  :root:not([data-theme="blue"]) .login-editions .edition-note { color:#e4d6bf; }
+
+  :root[data-theme="black-gold"] .pos-header { background:#292a2d;  }
+
+  :root[data-theme="black-gold"] .pos-wordmark .company-logo { filter:none; }
+
+  :root[data-theme="black-gold"] .upgrade-flag { background:#eee7d8; }
+  :root[data-theme="orange"] {
+    --theme-action-gradient:linear-gradient(100deg,#fe960e 0%,#f78406 55%,#ec7603 75%,#cc5600 100%);
+  }
+  :root[data-theme="black-gold"] {
+    --theme-action-gradient:linear-gradient(110deg,#c5a664 0%,#eed38e 35%,#feeeba 55%,#cdb27c 100%);
+  }
+  :root:not([data-theme="blue"]) :is(button.primary,.login-submit,.checkout-button) {
+    background-image:var(--theme-action-gradient);
+  }
+  :root[data-theme="orange"] .pos-header {
+    background:var(--theme-action-gradient);
+  }
+
+  :root[data-theme="black-gold"] .pos-header {
+    background:linear-gradient(110deg,#242421,#20201d 55%,#0a0a09);
+    border-bottom-color:#c5a664;
+  }
+  :root[data-theme="black-gold"] :is(button.primary,.login-submit,.checkout-button) {
+    color:#29251c;
+    --theme-on-color:#29251c;
+    border-color:#c5a664;
+    box-shadow:inset 0 1px 0 rgb(254 238 186 / 65%);
+  }
+  :root[data-theme="orange"] .login-nav button { color:#fff0df; opacity:1; }
+  :root[data-theme="orange"] .login-nav button:is(.active,:hover,:focus-visible) { color:#ffc078; }
+  :root[data-theme="black-gold"] .login-nav button.active { color:#eed38e; }
+  :root[data-theme="black-gold"] .login-shell {
+    background:linear-gradient(180deg,rgb(24 24 22 / 95%),rgb(40 39 34 / 80%) 55%,rgb(51 46 35 / 58%)),var(--home-artwork) center/cover no-repeat;
+  }
+  :root[data-theme="orange"] .login-shell {
+    background:linear-gradient(180deg,rgb(96 48 12 / 97%) 0%,rgb(130 65 18 / 86%) 32%,rgb(176 99 34 / 64%) 65%,rgb(190 126 59 / 38%) 100%),var(--home-artwork) center/cover no-repeat;
+  }
+  :root[data-theme="orange"] .login-product-intro > p { color:#fff0df; }
+  :root[data-theme="orange"] .login-editions .edition-note { color:#ffead4; }
+  :root[data-theme="orange"] #app :is(button.primary,.login-submit,.checkout-button) {color:#fff;--theme-on-color:#fff;}
+  :root[data-theme="orange"] #app :is(.management-content,.management-editor,.category-dialog,.action-confirm-dialog) button.primary:hover:not(:disabled) {filter:none;outline:1px solid #a84800;outline-offset:-1px;}
+  .product-placeholder { background:#f0f1f2; }
+  .product-placeholder > img.custom-placeholder { width:100%;height:100%;padding:0;object-fit:contain; }
+}
+
+@media screen { :root:not([data-theme="blue"]) :is(button.primary,.login-submit,.checkout-button) .icon {color:inherit;} }
