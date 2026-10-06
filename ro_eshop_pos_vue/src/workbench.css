@@ -2400,3 +2400,6 @@
  #app .register-layout>.catalog{--catalog-inset:8px}
  #app .register-layout>.basket{--basket-inset:8px;background:var(--theme-surface,#fff)}
 }
+
+#app dialog>.dialog-footer-actions{display:flex;flex-shrink:0;justify-content:flex-end;align-items:center;gap:12px;padding:16px;margin:0;border-top:1px solid var(--theme-line,#dce5f2);background:var(--theme-surface,#fff)}
+#app .settlement-dialog .receipt-only .print-actions{position:sticky;top:auto;bottom:0}

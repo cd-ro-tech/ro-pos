@@ -33,7 +33,7 @@ async function execute(){
  <button type="button" :disabled="disabled||working||!ids.length" @click="open(false)">{{t('批量停用')}}</button>
  <button v-if="ids.length" type="button" :disabled="disabled||working" @click="emit('clear')">{{t('取消选择')}}</button>
  <dialog ref="dialog" class="bulk-status-dialog" :aria-labelledby="titleId" @cancel.prevent="close">
-  <header><h3 :id="titleId">{{t(label)}} · {{t(done?'处理结果':'操作确认')}}</h3><button type="button" :disabled="working" :aria-label="t('关闭')" @click="close">×</button></header>
+  <header><h3 :id="titleId">{{t(label)}} · {{t(done?'处理结果':'操作确认')}}</h3></header>
   <p v-if="working" role="status">{{t('处理中…')}}</p>
   <p v-else-if="done" role="status">{{t('成功')}} {{rows.filter(r=>r.success).length}} / {{rows.length}}</p>
   <p v-else>{{t('可执行')}} {{allowed.length}} · {{t('不可执行')}} {{rows.length-allowed.length}}</p>

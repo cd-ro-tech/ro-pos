@@ -57,12 +57,6 @@ function save() {
     <form class="drawer-shell" @submit.prevent="save">
       <header class="drawer-header">
         <h2 id="shortcut-title">{{ t("系统设置") }}</h2>
-        <button
-          type="button"
-          class="plain"
-          :aria-label="t('关闭系统设置')"
-          @click="dialog?.close()"
-        >{{ t("关闭") }}</button>
       </header>
       <div class="drawer-body">
         <h3>{{ t("快捷键设置") }}</h3>
@@ -103,7 +97,12 @@ function save() {
           "
         >{{ t("恢复默认") }}</button
         ><button type="submit" class="primary" :disabled="invalid">{{ t("保存设置") }}</button>
-      </footer>
+      <button
+          type="button"
+          class="plain"
+          :aria-label="t('关闭系统设置')"
+          @click="dialog?.close()"
+        >{{ t("关闭") }}</button></footer>
     </form>
   </dialog>
 </template>

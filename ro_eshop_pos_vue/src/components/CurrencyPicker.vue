@@ -20,7 +20,7 @@ function confirm(){if(props.disabled||!options.value.some(row=>row.currency_code
 <button ref="trigger" type="button" class="currency-picker-trigger" :disabled="disabled" aria-haspopup="dialog" :aria-label="t('选择币种')+'：'+modelValue" @click="open"><span>{{modelValue}} · {{name(modelValue)}} <small v-if="selected?.symbol">{{selected.symbol}}</small></span><PosIcon name="search" /></button>
 <Teleport to="body">
 <dialog ref="dialog" class="currency-picker-dialog" :aria-labelledby="id+'-title'" @cancel.prevent.stop="close" @keydown.esc.stop>
-<header><h2 :id="id+'-title'">{{t('选择币种')}}</h2><button type="button" :aria-label="t('关闭')" @click="close"><PosIcon name="close" /></button></header>
+<header><h2 :id="id+'-title'">{{t('选择币种')}}</h2></header>
 <div class="currency-picker-search"><PosIcon name="search" /><input ref="search" v-model="query" :aria-label="t('搜索币种')" :placeholder="t('输入币种代码或名称')" @keydown.enter.prevent /></div>
 <div class="currency-picker-list" role="radiogroup" :aria-label="t('币种')">
 <label v-for="row in filtered" :key="row.currency_code" :class="{selected:draft===row.currency_code}"><input v-model="draft" type="radio" :name="id" :value="row.currency_code" :disabled="disabled" /><strong>{{row.currency_code}}</strong><span>{{row.label}}<small>{{row.currency_name}}</small></span><span class="currency-symbol">{{row.symbol}}</span></label>

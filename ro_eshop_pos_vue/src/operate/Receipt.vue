@@ -52,12 +52,6 @@ async function print() {
 useShortcuts({ print }, () => !props.preview && !printing.value, true);
 </script>
 <template>
-  <div class="print-actions">
-    <label
-      >{{ t("小票宽度") }}<PosSelect v-model="width" :options="[{value:'80',label:'80mm'},{value:'58',label:'58mm'}]" /></label
-    ><button v-if="!preview" @click="print" :disabled="printing" class="action-with-icon"><PosIcon name="print" />{{ t("打印小票") }}<ShortcutHint action="print" /></button
-    ><button v-if="compact" class="primary action-with-icon" @click="emit('done')"><PosIcon name="check" />{{ t("完成，下一单") }}</button><small v-else-if="!preview">{{ t("浏览器打印时选择同宽纸张，关闭页眉页脚。") }}</small>
-  </div>
   <div class="receipt-paper" :style="{ '--receipt-width': width + 'mm' }">
     <div v-if="customText" class="receipt-custom-text receipt-custom-header">{{ customText.header }}</div>
     <div v-else class="receipt-store"><b v-if="order.store?.name">{{ standalone ? t(order.store.name) : order.store.name }}</b><span v-if="order.store?.address">{{ order.store.address }}</span><span v-if="order.store?.phone">{{ order.store.phone }}</span></div>
@@ -108,6 +102,12 @@ useShortcuts({ print }, () => !props.preview && !printing.value, true);
     <hr />
     <p v-if="order.refund_total">{{t("已退款")}} {{money(order.refund_total)}}</p>
     <p class="receipt-custom-text">{{ customText ? customText.footer : t("请妥善保管小票 · 感谢惠顾") }}</p>
+  </div>
+  <div class="print-actions">
+    <label
+      >{{ t("小票宽度") }}<PosSelect v-model="width" :options="[{value:'80',label:'80mm'},{value:'58',label:'58mm'}]" /></label
+    ><button v-if="!preview" @click="print" :disabled="printing" class="action-with-icon"><PosIcon name="print" />{{ t("打印小票") }}<ShortcutHint action="print" /></button
+    ><button v-if="compact" class="primary action-with-icon" @click="emit('done')"><PosIcon name="check" />{{ t("完成，下一单") }}</button><small v-else-if="!preview">{{ t("浏览器打印时选择同宽纸张，关闭页眉页脚。") }}</small>
   </div>
 </template>
 

@@ -1083,11 +1083,6 @@ defineExpose({ refreshProducts: async () => { await loadCategories(); await sear
   >
     <header class="settlement-dialog-head">
       <h2><PosIcon :name="order && order.state !== 'draft' && order.state !== 'closed' ? 'print' : 'recharge'" />{{ order ? (order.state !== 'draft' && order.state !== 'closed' ? t("小票") : t("收款")) : checkoutStep === 'member' ? t("会员结算") : checkoutStep === 'payment' ? t("收款") : t("结算") }}</h2>
-      <button
-        :disabled="submitting || settlementLocked"
-        @click="dismissCheckout"
-        :aria-label="t('关闭结算')"
-       class="dialog-close"><PosIcon name="close" /></button>
     </header>
     <section
       v-if="checkoutOpen"
@@ -1119,9 +1114,13 @@ defineExpose({ refreshProducts: async () => { await loadCategories(); await sear
         </div>
       </template>
     </section>
-  </dialog>
+  <footer class="dialog-footer-actions"><button
+        :disabled="submitting || settlementLocked"
+        @click="dismissCheckout"
+        :aria-label="t('关闭结算')"
+       >{{ t('关闭') }}</button></footer></dialog>
   <dialog ref="removeDialog" class="product-action-dialog remove-product-dialog" aria-labelledby="remove-product-title" @cancel.prevent="cancelRemove">
-    <header><h2 id="remove-product-title"><PosIcon name="trash" />{{ t("移除商品") }}</h2><button class="dialog-close" :aria-label="t('关闭移除确认')" @click="cancelRemove"><PosIcon name="close" /></button></header>
+    <header><h2 id="remove-product-title"><PosIcon name="trash" />{{ t("移除商品") }}</h2></header>
     <template v-if="removingLine">
       <p>{{ t("是否移除此商品？") }}</p>
       <div class="remove-product-info">
@@ -1133,7 +1132,7 @@ defineExpose({ refreshProducts: async () => { await loadCategories(); await sear
   </dialog>
   <dialog ref="priceDialog" class="product-action-dialog price-change-dialog" aria-labelledby="price-change-title" @cancel.prevent="cancelPriceChange">
     <form v-if="pricingLine" @submit.prevent="confirmPriceChange">
-      <header><h2 id="price-change-title"><PosIcon name="note" />{{ t("商品改价") }}</h2><button type="button" class="dialog-close" :aria-label="t('关闭改价')" @click="cancelPriceChange"><PosIcon name="close" /></button></header>
+      <header><h2 id="price-change-title"><PosIcon name="note" />{{ t("商品改价") }}</h2></header>
       <div class="product-action-summary">
         <div class="product-action-image"><ProductImage :src="pricingLine.image" /></div>
         <div><b>{{ pricingLine.name }}</b><small>{{ pricingLine.spec }}</small><dl><div><dt>{{ t("原单价") }}</dt><dd>{{ money(pricingLine.price) }}</dd></div><div><dt>{{ t("数量") }}</dt><dd>{{ pricingLine.qty }}</dd></div><div><dt>{{ t("当前小计") }}</dt><dd><strong>{{ money(lineTotal(pricingLine)) }}</strong></dd></div></dl></div>
@@ -1157,9 +1156,6 @@ defineExpose({ refreshProducts: async () => { await loadCategories(); await sear
     <div class="drawer-shell" :inert="submitting">
       <header class="drawer-header">
         <h2 id="drawer-title"><PosIcon :name="panel === 'member-service' ? 'user' : 'documents'" />{{ t(panelTitle) }}</h2>
-        <button class="dialog-close" :aria-label="t('关闭面板')" @click="dismissPanel">
-          <PosIcon name="close" />
-        </button>
       </header>
       <div class="drawer-body">
         <template v-if="panel === 'note'"
@@ -1196,7 +1192,9 @@ defineExpose({ refreshProducts: async () => { await loadCategories(); await sear
         <button class="primary checkout-button" @click="closePanel">{{ t("保存备注") }}</button>
       </footer>
     </div>
-  </dialog>
+  <footer class="dialog-footer-actions"><button :aria-label="t('关闭面板')" @click="dismissPanel">
+          {{ t('关闭') }}
+        </button></footer></dialog>
 <ReturnDialog :open="showReturn" @close="showReturn=false" />
 </template>
 <style scoped>

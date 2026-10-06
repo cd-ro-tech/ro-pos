@@ -151,8 +151,8 @@ useListState("orders-"+(props.todayOnly?"today":"all"),{keyword,appliedKeyword,p
       <ListPagination :page="page" :page-size="pageSize" :total="total" :busy="busy" @change="paginate" /></template
     >
     <dialog v-if="todayOnly" ref="detailDialog" class="performance-detail-dialog" :aria-label="t('单据与小票')" @cancel.prevent="selected = null">
-      <header><h2>{{ t("单据与小票") }}</h2><button @click="selected = null" class="action-with-icon"><PosIcon name="close" />{{ t("关闭") }}</button></header>
+      <header><h2>{{ t("单据与小票") }}</h2></header>
       <OrderDetail v-if="selected" :order="selected" read-only @close="selected = null" />
-    </dialog>
+    <footer class="dialog-footer-actions"><button @click="selected = null" class="action-with-icon"><PosIcon name="close" />{{ t("关闭") }}</button></footer></dialog>
   </div>
 </template>

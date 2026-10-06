@@ -20,7 +20,7 @@ onMounted(async()=>{dialog.value?.showModal();if(standalone.value)return;busy.va
 </script>
 <template>
 <dialog ref="dialog" class="pure-admin-page currency-dialog" :aria-label="t('币种设置')" @cancel.prevent="close">
-<header><h2>{{t('币种设置')}}</h2><button type="button" class="currency-close" :aria-label="t('关闭')" :title="t('关闭')" :disabled="busy" @click="close"><PosIcon name="close" /></button></header>
+<header><h2>{{t('币种设置')}}</h2></header>
 <form :id="settingsFormId" @submit.prevent="save">
 <div class="currency-content">
 <div class="currency-description">
